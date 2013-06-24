@@ -246,98 +246,108 @@ var pe_course=0//計算PE
 var dept="";
 function readme(x)
 {
-	if(x==1){document.getElementById('readme').style.display='block';}
-	if(x==2){document.getElementById('readme').style.display='none';}
+if(x==1){document.getElementById('readme').style.display='block';}
+if(x==2){document.getElementById('readme').style.display='none';}
 }
 
 function get_info(data)
 {
-	//5=>0099上   6=>系 18=>學號 19=>名子
-	var str=data.split(" ");
-	document.getElementById('name').innerHTML+= str[5]+" 課表已加入!<br>";
-	//用學號前兩碼判斷
-	dept=str[18].substring(0,2);
+//5=>0099上   6=>系 18=>學號 19=>名子
+var str=data.split(" ");
+//document.getElementById('name').innerHTML+= str[1]+" "+str[3]+" 使用中<br>";
+//tmp="";
+//for(i=0;i<str.length;i++){tmp=tmp+i+":"+str[i]+"\n"}
+//alert("0="+str[0]+"1="+str[1]+"2="+str[2]+"3="+str[3]+"4="+str[4]+"5="+str[5]+"6="+str[6]+"7="+str[7]+"8="+str[8]+"9="+str[9]+"10="+str[10]+"11="+str[11]);
+//alert(tmp);
+
+document.getElementById('name').innerHTML+= str[5]+" 課表已加入!<br>";
+//用學號前兩碼判斷
+dept=str[18].substring(0,2);
+//alert(dept)
+//alert(str[5]+" 課表已加入!");
 }
 
 function process(data)
 {
-	var str=data.split("\n");
-	if(str.length>0)
-	{
-	for(i=0;i<str.length;i++)
-	{
-		if(str[i].indexOf('男')!=-1||str[i].indexOf('女')!=-1)
-		{
-				if(str[i].indexOf('修')==-1)
-				{
-					get_info(str[i]);
-					var show=str[i];
-					//alert(show+"課表已加入完成!");
-					}
-					else
-					{
-					add_result(str[i]) //不然婦"女"使  羽球"男女" 會被剔除
-				}//else
-		}//if
-		else
-		{
-		add_result(str[i])
-		}
-	}//for
+var str=data.split("\n");
+if(str.length>0)
+{
+for(i=0;i<str.length;i++)
+{
+if(str[i].indexOf('男')!=-1||str[i].indexOf('女')!=-1)
+{
+if(str[i].indexOf('修')==-1)
+{
+get_info(str[i]);
+var show=str[i];
+//alert(show+"課表已加入完成!");
+}
+else
+{
+add_result(str[i]) //不然婦"女"使  羽球"男女" 會被剔除
+}//else
+}//if
+else
+{
+add_result(str[i])
+}
+//document.getElementById('show').innerHTML+=str[i]+i+"<br>";
+}//for
 }
 
-calculate_score();//calculate score
+calculate_score();
+
 
 
 }
 
 function calculate_score()
 {
-	document.getElementById('now_has').innerHTML="";
-	//計算服務學習
-	if(serve_course>=3){document.getElementById('now_has').innerHTML+="服務學習: 已修畢<br>";}
-	else {document.getElementById('now_has').innerHTML+="服務學習: 尚未修畢<br>";}
-	//計算pe
-	if(pe_course>=4){document.getElementById('now_has').innerHTML+="體育課程: 已修畢<br>";}
-	else {document.getElementById('now_has').innerHTML+="體育課程: 尚未修畢<br>";}
+document.getElementById('now_has').innerHTML="";
+//計算服務學習
+if(serve_course>=3){document.getElementById('now_has').innerHTML+="服務學習: 已修畢<br>";}
+else {document.getElementById('now_has').innerHTML+="服務學習: 尚未修畢<br>";}
+//計算pe
+if(pe_course>=4){document.getElementById('now_has').innerHTML+="體育課程: 已修畢<br>";}
+else {document.getElementById('now_has').innerHTML+="體育課程: 尚未修畢<br>";}
 
-	//計算核心通識
-	element1=document.getElementById('english_s');
-	tmp1=parseInt(element1.innerHTML);
-	element1=document.getElementById('chinese_s');
-	tmp2=parseInt(element1.innerHTML);
-	element1=document.getElementById('art_s');
-	tmp3=parseInt(element1.innerHTML);
-	element1=document.getElementById('civic_s');
-	tmp4=parseInt(element1.innerHTML);
-	if(tmp1>=4 & tmp2>=4 && tmp3>=4 && tmp4>=4)
-	{document.getElementById('now_has').innerHTML+="核心通識: 已修畢<br>";}
-	else  {document.getElementById('now_has').innerHTML+="核心通識: 尚未修畢<br>";}
-	//計算一般通識
-	var science=0,social=0,human=0,life=0,all_in=0,mix=0;
-	element1=document.getElementById('science_s');
-	science=parseInt(element1.innerHTML);
-	element1=document.getElementById('social_s');
-	social=parseInt(element1.innerHTML);
-	element1=document.getElementById('human_s');
-	human=parseInt(element1.innerHTML);
-	element1=document.getElementById('life_s');
-	life=parseInt(element1.innerHTML);
-	element1=document.getElementById('all_in_s');
-	all=parseInt(element1.innerHTML);
+//計算核心通識
+element1=document.getElementById('english_s');
+tmp1=parseInt(element1.innerHTML);
+element1=document.getElementById('chinese_s');
+tmp2=parseInt(element1.innerHTML);
+element1=document.getElementById('art_s');
+tmp3=parseInt(element1.innerHTML);
+element1=document.getElementById('civic_s');
+tmp4=parseInt(element1.innerHTML);
+if(tmp1>=4 & tmp2>=4 && tmp3>=4 && tmp4>=4)
+{document.getElementById('now_has').innerHTML+="核心通識: 已修畢<br>";}
+else  {document.getElementById('now_has').innerHTML+="核心通識: 尚未修畢<br>";}
+//計算一般通識
+var science=0,social=0,human=0,life=0,all_in=0,mix=0;
+element1=document.getElementById('science_s');
+science=parseInt(element1.innerHTML);
+element1=document.getElementById('social_s');
+social=parseInt(element1.innerHTML);
+element1=document.getElementById('human_s');
+human=parseInt(element1.innerHTML);
+element1=document.getElementById('life_s');
+life=parseInt(element1.innerHTML);
+element1=document.getElementById('all_in_s');
+all=parseInt(element1.innerHTML);
 
-	element1=document.getElementById('mix');
-	mix=parseInt(element1.innerHTML);
+element1=document.getElementById('mix');
+mix=parseInt(element1.innerHTML);
 
-	if(science>=2&&social>=2&&human>=2&&life>=2&&mix>=2&&science+social+human+life+mix+all_in>=16)
-	{
-		document.getElementById('now_has').innerHTML+="一般通識: 已修畢<br>";
-	}
-	else 
-	{
-		document.getElementById('now_has').innerHTML+="一般通識: 尚未修畢<br>";
-	}
-	//document.getElementById('now_has').innerHTML+="一般通識: 計算公式尚未建立<br>";
+if(science>=2&&social>=2&&human>=2&&life>=2&&mix>=2&&science+social+human+life+mix+all_in>=16)
+{
+document.getElementById('now_has').innerHTML+="一般通識: 已修畢<br>";
+}
+else 
+{
+document.getElementById('now_has').innerHTML+="一般通識: 尚未修畢<br>";
+}
+//document.getElementById('now_has').innerHTML+="一般通識: 計算公式尚未建立<br>";
 
 
 }
@@ -346,53 +356,53 @@ function calculate_score()
 //序號 :0|系所 :1|課程碼 :2|科目名稱 :3|課程別 :4|學分 :5|必/選修 :6|分數 :7|承認Y/N :8|通識領域:9|
 function add_result(data)
 {
-	//此版本要用空白切!
-	var str=data.split(" ");
+//此版本要用空白切!
+var str=data.split(" ");
 
-	if(str.length>0&&data.indexOf('序號')==-1&&str[8]!=null&&str[7].indexOf('退選')==-1)//其實大於一就好 
-	{
-		if(parseInt(str[7])>=60)
-		{
-			if(str[3]!=null&&str[3].indexOf('英文')!=-1){document.getElementById('english').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('english_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[3]!=null&&str[3].indexOf('基礎國文')!=-1){document.getElementById('chinese').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('chinese_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[9].indexOf('哲學與藝術')!=-1){document.getElementById('art').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('art_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[9].indexOf('公民與歷史')!=-1){document.getElementById('civic').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('civic_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[1]!=null&&str[1].indexOf('AG')!=-1){document.getElementById('civic').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('civic_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[9].indexOf('自然與工程科學')!=-1){document.getElementById('science').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('science_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+if(str.length>0&&data.indexOf('序號')==-1&&str[8]!=null&&str[7].indexOf('退選')==-1)//其實大於一就好 
+{
+if(parseInt(str[7])>=60)
+{
+if(str[3]!=null&&str[3].indexOf('英文')!=-1){document.getElementById('english').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('english_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[3]!=null&&str[3].indexOf('基礎國文')!=-1){document.getElementById('chinese').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('chinese_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('哲學與藝術')!=-1){document.getElementById('art').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('art_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('公民與歷史')!=-1){document.getElementById('civic').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('civic_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[1]!=null&&str[1].indexOf('AG')!=-1){document.getElementById('civic').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('civic_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('自然與工程科學')!=-1){document.getElementById('science').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('science_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
 
-			else if(str[9]!=null&&str[9].indexOf('生命科學')!=-1){document.getElementById('life').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('life_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('生命科學')!=-1){document.getElementById('life').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('life_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
 
-			else if(str[9]!=null&&str[9].indexOf('社會科學')!=-1){document.getElementById('social').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('social_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[9].indexOf('人文學')!=-1){document.getElementById('human').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('human_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[9].indexOf('融合通識')!=-1){document.getElementById('mix').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('mix_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[9].indexOf('科際')!=-1){document.getElementById('all_in').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('all_in_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[3].indexOf('服務學習')!=-1){ serve_course++;document.getElementById('serve').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('serve_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('社會科學')!=-1){document.getElementById('social').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('social_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('人文學')!=-1){document.getElementById('human').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('human_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('融合通識')!=-1){document.getElementById('mix').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('mix_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[9].indexOf('科際')!=-1){document.getElementById('all_in').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('all_in_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[3].indexOf('服務學習')!=-1){ serve_course++;document.getElementById('serve').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('serve_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
 
-			else if(str[9]!=null&&str[3].indexOf('體育（一）')!=-1){pe_course++; document.getElementById('pe').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('pe_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-			else if(str[9]!=null&&str[1].indexOf('A2')!=-1){ pe_course++;document.getElementById('pe').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('pe_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[3].indexOf('體育（一）')!=-1){pe_course++; document.getElementById('pe').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('pe_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else if(str[9]!=null&&str[1].indexOf('A2')!=-1){ pe_course++;document.getElementById('pe').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('pe_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
 
 
-			else if(str[6].indexOf('必')!=-1)
-			{
-				if(str[1].indexOf(dept)==-1&&str[1].indexOf('A2')==-1)//體育課算在必修
-				{document.getElementById('out_choose').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('out_choose_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-				else
-				{
-				document.getElementById('require').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('require_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);
-				}
+else if(str[6].indexOf('必')!=-1)
+{
+if(str[1].indexOf(dept)==-1&&str[1].indexOf('A2')==-1)//體育課算在必修
+{document.getElementById('out_choose').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('out_choose_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else
+{
+document.getElementById('require').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('require_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);
+}
 
-			}
-			else if(str[6].indexOf('選')!=-1)
-			{
-				if(str[1].indexOf(dept)==-1&&str[1].indexOf('A2')==-1)//體育課算在必修
-				{document.getElementById('out_choose').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('out_choose_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
-				else
-				{
-				document.getElementById('choose').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('choose_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);
-				}//else
-			}
-		}//if >60
-	}//if
+}
+else if(str[6].indexOf('選')!=-1)
+{
+if(str[1].indexOf(dept)==-1&&str[1].indexOf('A2')==-1)//體育課算在必修
+{document.getElementById('out_choose').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('out_choose_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);}
+else
+{
+document.getElementById('choose').innerHTML+=str[3]+"("+str[5]+"學分)<br>";element=document.getElementById('choose_s');tmp=parseInt(element.innerHTML);element.innerHTML=tmp+parseInt(str[5]);
+}//else
+}
+}//if >60
+}//if
 
 }
 </script>
@@ -400,104 +410,119 @@ function add_result(data)
 
 <?php
 //如果直接get content會顯示請開啟COOKIE
-//所以要先接  再當參數send
+//所以要先接  再當參數船
+
+
+
 function getData($year,$sem)
 {
-	$ID=$_POST['id'];
-	$PWD=$_POST['pwd'];
-	$httphandle = fopen("http://140.116.165.72:8888/ncku/qrys05.asp","r");
-	$meta = stream_get_meta_data($httphandle);
-	for ($j = 0; isset($meta['wrapper_data'][$j]); $j++) {
-	   $httpline = $meta['wrapper_data'][$j];
-	   @list($header,$parameters) = explode(";",$httpline,2);
-	   @list($attr,$value) = explode(":",$header,2);
-	   if (strtolower(trim($attr)) == "set-cookie") {
-		  $cookie = trim($value);
-		  break;
-	   }
-	}
-	fclose($httphandle);
+$ID=$_POST['id'];
+$PWD=$_POST['pwd'];
 
-	$opts = array('http' => array('header'=> 'Cookie: ' . $cookie."\r\n"));
-	$context = stream_context_create($opts);
-	if($year==101&&$sem==2)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0101下',false, $context);
-	if($year==101&&$sem==1)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0101上',false, $context);
-	if($year==100&&$sem==2)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0100下',false, $context);
-	if($year==100&&$sem==1)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0100上',false, $context);
-	if($year==99&&$sem==2)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0099下',false, $context);
-	if($year==99&&$sem==1)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0099上',false, $context);
-	if($year==98&&$sem==2)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0098下',false, $context);
-	if($year==98&&$sem==1)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0098上',false, $context);
-	if($year==97&&$sem==2)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0097下',false, $context);
-	if($year==97&&$sem==1)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0097上',false, $context);
-	if($year==96&&$sem==2)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0096下',false, $context);
-	if($year==96&&$sem==1)
-	$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0096上',false, $context);
 
-	$page=strip_tags($page);
-	$data=split("\n",$page);
-	for($i=0;$i<sizeof($data);$i++)
-	{
-		$data[$i]=preg_replace('/\s/'," ", $data[$i]);
-	}
-	//加入學號資訊
-	if(sizeof($data)>=56)
-	{
-		echo "<script>process(\"".$data[56]."\")</script>";
-	}
+$httphandle = fopen("http://140.116.165.72:8888/ncku/qrys05.asp","r");
+$meta = stream_get_meta_data($httphandle);
+for ($j = 0; isset($meta['wrapper_data'][$j]); $j++) {
+   $httpline = $meta['wrapper_data'][$j];
+   @list($header,$parameters) = explode(";",$httpline,2);
+   @list($attr,$value) = explode(":",$header,2);
+   if (strtolower(trim($attr)) == "set-cookie") {
+      $cookie = trim($value);
+      break;
+   }
+}
+fclose($httphandle);
 
-	for($i=74;$i<sizeof($data);$i++)
-	{
-		if(($i+17)>sizeof($data))break;//要加這行!不然有可能最後一個offset會爆
-		$tmp=preg_replace('/ /',"",$data[$i])." ".preg_replace('/ /',"",$data[$i+3])." ".preg_replace('/ /',"",$data[$i+5])." ".preg_replace('/ /',"",$data[$i+7])." ".preg_replace('/ /',"",$data[$i+9])." ".preg_replace('/ /',"",$data[$i+10])." ".preg_replace('/ /',"",$data[$i+11])." ".preg_replace('/ /',"",$data[$i+13])." ".preg_replace('/ /',"",$data[$i+15])." ".preg_replace('/ /',"",$data[$i+17]);
+$opts = array('http' => array('header'=> 'Cookie: ' . $cookie."\r\n"));
+$context = stream_context_create($opts);
+if($year==101&&$sem==2)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0101下',false, $context);
+if($year==101&&$sem==1)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0101上',false, $context);
+if($year==100&&$sem==2)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0100下',false, $context);
+if($year==100&&$sem==1)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0100上',false, $context);
+if($year==99&&$sem==2)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0099下',false, $context);
+if($year==99&&$sem==1)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0099上',false, $context);
+if($year==98&&$sem==2)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0098下',false, $context);
+if($year==98&&$sem==1)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0098上',false, $context);
+if($year==97&&$sem==2)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0097下',false, $context);
+if($year==97&&$sem==1)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0097上',false, $context);
+if($year==96&&$sem==2)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0096下',false, $context);
+if($year==96&&$sem==1)
+$page=file_get_contents('http://140.116.165.72:8888/ncku/qrys05.asp?ID='.$ID.'&PWD='.$PWD.'&submit1=0096上',false, $context);
 
-		echo "<script>process(\"".$tmp."\")</script>";
-		//Magic!如果後方有紅字加21 沒有的話 加22
-		if(strlen(preg_replace('/ /',"",$data[$i+17]))==0)$i=$i+22;
-		else $i=$i+21;
-	}//for
+$page=strip_tags($page);
+$data=split("\n",$page);
+for($i=0;$i<sizeof($data);$i++)
+{
+$data[$i]=preg_replace('/\s/'," ", $data[$i]);
+}
+//加入學號資訊
+if(sizeof($data)>=56)
+{
+echo "<script>process(\"".$data[56]."\")</script>";
+}
+
+for($i=75;$i<sizeof($data);$i++)
+{
+if(($i+19)>sizeof($data))break;//要加這行!不然有可能最後一個offset會爆
+//序號 :0|系所 :1|課程碼 :2|科目名稱 :3|課程別 :4(空)|學分 :5|必/選修 :6|分數 :7|承認Y/N :8(空)|通識領域:9|
+$tmp=preg_replace('/ /',"",$data[$i])." "//序號
+.preg_replace('/ /',"",$data[$i+3])." "//系所
+.preg_replace('/ /',"",$data[$i+5])." "//課程碼
+.preg_replace('/ /',"",$data[$i+7])." "//名稱
+."Y"." "//空
+.preg_replace('/ /',"",$data[$i+10])." "//學分
+.preg_replace('/ /',"",$data[$i+11])." "//必選
+.preg_replace('/ /',"",$data[$i+13])." "//分數
+."Y"." "//承(空)
+.preg_replace('/ /',"",$data[$i+18]);
+echo "<script>process(\"".$tmp."\")</script>";
+//Magic!如果後方有字加23 沒有的話 加24
+if(strlen(preg_replace('/ /',"",$data[$i+18]))==0)$i=$i+23;
+else $i=$i+22;
+}//for
+
 
 }//function
 
+//check id and password
+if(strpos(" ".$_POST['id'],'\'') || strpos(" ".$_POST['id'],'\"')||strpos( " ".$_POST['pwd'],'\'')||strpos(" ".$_POST['pwd'],'\"'))
+{
+echo "<script>alert('查無資料，請重新查明後再播，謝謝!')</script>";
+exit;
+}
+else if(strlen($_POST['id'])<=1 || strlen($_POST['pwd'])<=1)
+{
+echo "<script>alert('查無資料，請重新查明後再播，謝謝!')</script>";
+exit;
+}
+else
+{
 
-//main fuction
-	//check id and password
-	if(strpos(" ".$_POST['id'],'\'') || strpos(" ".$_POST['id'],'\"')||strpos( " ".$_POST['pwd'],'\'')||strpos(" ".$_POST['pwd'],'\"'))
-	{
-	echo "<script>alert('查無資料，請重新查明後再播，謝謝!')</script>";
-	exit;
-	}
-	else if(strlen($_POST['id'])<=1 || strlen($_POST['pwd'])<=1)
-	{
-	echo "<script>alert('查無資料，請重新查明後再播，謝謝!')</script>";
-	exit;
-	}
-	else
-	{
-	//call function
-		getData(97,1);
-		getData(97,2);
-		getData(98,1);
-		getData(98,2);
-		getData(99,1);
-		getData(99,2);
-		getData(100,1);
-		getData(100,2);
-		getData(101,1);
-	//getData(101,2);
-	}	
-	echo "<script>document.getElementById('name').innerHTML+=\" 學分計算完成!!!!<br>\";</script>"	
+//call function
+getData(97,1);
+getData(97,2);
+getData(98,1);
+getData(98,2);
+getData(99,1);
+getData(99,2);
+getData(100,1);
+getData(100,2);
+getData(101,1);
+//getData(101,2);
+}
+//echo "<script>alert('OK')</script>"
+echo "<script>document.getElementById('name').innerHTML+=\" 學分計算完成!!!!<br>\";</script>"
 ?>
 
 </body>
